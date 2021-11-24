@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    </head>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+        .center {
+            margin: auto;
+            width: 60%;
+            padding: 10px;
+          }
+        </style>
+
+    <body>
+        <form method="POST" action="{{ url_for('home') }}">
+            <table>
+                <tr>
+                    <td>Distance</td>
+                    <td> <button class="btn btn-light" type="submit" name="d 1" value="00">d = 1</button> </td>
+                    <td> <button class="btn btn-light" type="submit" name="d 2" value="01">d = 2</button> </td>
+                    <td> <button class="btn btn-light" type="submit" name="d 3" value="02">d = 3</button> </td>
+                </tr>
+
+                <tr>
+                    <td>Angles</td>
+                    <td> <button class="btn btn-light" type="submit" name="a 0" value="10">d = 0</button> </td>
+                    <td> <button class="btn btn-light" type="submit" name="a 1" value="11">d = 45</button> </td>
+                    <td> <button class="btn btn-light" type="submit" name="a 2" value="12">d = 90</button> </td>
+                    <td> <button class="btn btn-light" type="submit" name="a 3" value="13">d = 135</button> </td>
+                </tr>
+            </table>
+
+        </form>
+
+        {% macro increment(dct, key, inc=1)%}
+    {% if dct.update({key: dct[key] + inc}) %} {% endif %}
+        {% endmacro %}
+
+    <div class="center">
+        <h1>Random Matrix</h1>
+            <table>
+                
+
+                {% for m in range(0,4) %}
+                        <tr>
+
+                    {% for n in range(0,5) %}
+
+                    {% if (m,n) in lot %}
+
+
+                        <td height="50" width="50" bgcolor="#FF7659" style="text-align: center;">{{rm[m][n]}}
+                        </td>
+                    {% else %}
+                    <td height="50" width="50" style="text-align: center;">{{rm[m][n]}}
+                    </td>
+
+                    {% endif %}
+
+
+                    {% endfor %}
+                    
+                    </tr>
+                {% endfor %}
+            </table>
+    </div>
+
+    <div class="center">
+    <h1>Result Matrix</h1>
+    <form method="POST" action="{{ url_for('home') }}">
+    <table>
+    {% for m in result[0:-1] %}
+        <tr>
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="0 {{ loop.index-1 }}">{{m[0]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="1 {{ loop.index-1 }}">{{m[1]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="2 {{ loop.index-1 }}">{{m[2]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="3 {{ loop.index-1}}">{{m[3]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="4 {{ loop.index-1 }}">{{m[4]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="5 {{ loop.index-1 }}">{{m[5]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="6 {{ loop.index-1 }}">{{m[6]}}</button>
+            </td>
+
+            <td height="50" width="50" style="text-align: center;">
+                <button class="btn btn-light" type="submit" style="height: 100%;width:100%;" name="7 {{ loop.index-1 }}">{{m[7]}}</button>
+            </td>
+
+        </tr>
+    {% endfor %}
+    </table>
+    </form>
+
+    <table class="table">
+        <tr>
+            <td>Index</td>
+            {% for i in iv %}
+            <td> {{i}} </td>
+
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <td>Value</td>
+            <td> {{ val }}</td>
+
+        </tr>
+
+        <tr>
+            <td>Indicies in RM</td>
+            {% for i in indi %}
+            <td> {{i}} </td>
+
+            {% endfor %}
+        </tr>
+    </table>
+
+</div>
+    </body>
+</html>
